@@ -18,30 +18,32 @@ function App() {
         <div className="w-sm overflow-hidden rounded-xl border border-zinc-700 bg-zinc-900">
           {/* tabs */}
           <div className="flex">
-            {tabs.map((tab) => (
+            {tabs.map((tab, index) => (
               <ul className="flex-1">
-                <li key={tab.title} className="border-b border-zinc-700">
+                <li
+                  key={tab.title}
+                  className={`${index === tabs.length - 1 ? "" : "border-r border-zinc-700"} border-b border-zinc-700`}
+                >
                   <motion.button
                     animate={{
                       opacity: tab.id === activeTab ? 1 : 0.6,
-                      scale: tab.id === activeTab ? 1 : 0.95,
                       backgroundColor:
                         tab.id === activeTab ? "#27272a" : "#18181b",
                     }}
-                    whileTap={{ scale: 0.9 }}
+                    whileTap={{ scale: 0.95 }}
                     className="flex w-full cursor-pointer items-center justify-center gap-2 p-3"
                     onClick={() => setActiveTab(tab.id)}
                   >
                     <span className="font-semibold">{tab.emoji}</span>
                     <span className="font-semibold">{tab.title}</span>
                   </motion.button>
+                  {activeTab === tab.id && (
+                    <motion.div
+                      layoutId="underline"
+                      className="rounded-full border border-red-700"
+                    />
+                  )}
                 </li>
-                {activeTab === tab.id && (
-                  <motion.div
-                    layoutId="underline"
-                    className="rounded-full border border-red-700"
-                  />
-                )}
               </ul>
             ))}
           </div>
